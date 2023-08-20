@@ -439,6 +439,32 @@ function showHeroAnimation() {
   });
 }
 
+function bgVideoPlayback() {
+  if (document.querySelector('#bgVideo')) {
+    const video = document.getElementById('bgVideo');
+
+    function playVideo() {
+      video.play();
+      // console.log("Play video");
+    }
+
+    function pauseVideo() {
+      video.pause();
+      // console.log("Pause video");
+    }
+
+    ScrollTrigger.create({
+      trigger: '.show-hero',
+      start: 'top bottom',
+      end: 'bottom top',
+      onEnter: playVideo,
+      onLeave: pauseVideo,
+      onEnterBack: playVideo,
+      onLeaveBack: pauseVideo
+    });
+  }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   aboutAnimation();
   phrasesAnimation();
@@ -452,4 +478,5 @@ window.addEventListener('DOMContentLoaded', () => {
   // scrollArrow();
   showIntroAnimation();
   showHeroAnimation();
+  bgVideoPlayback();
 });
