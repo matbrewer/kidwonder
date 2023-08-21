@@ -465,6 +465,61 @@ function bgVideoPlayback() {
   }
 }
 
+function headingInViewAnimation() {
+  if (document.querySelector('.mission-heading')) {
+    const heading = document.querySelector('.mission-heading');
+
+    const splitHeading = new SplitType(heading, { types: 'lines' });
+
+    // console.log({ splitHeading });
+
+    let tl = gsap.timeline({
+      paused: true,
+      scrollTrigger: {
+        trigger: '.mission-heading-container',
+        start: 'top bottom',
+        toggleActions: 'play none none reset'
+      }
+    });
+
+    tl.from(splitHeading.lines, {
+      opacity: 0,
+      y: -48,
+      ease: 'power1.out',
+      duration: 1.2,
+      stagger: { amount: 0.5 }
+    });
+  }
+}
+
+function carsouselInViewAnimation() {
+  if (document.querySelector('.swiper')) {
+    const carouselElements = document.querySelectorAll('.swiper');
+
+    carouselElements.forEach((carouselElement) => {
+      const carouselItems = carouselElement.querySelectorAll('.swiper-slide');
+      // console.log({ carouselItems });
+
+      let tl = gsap.timeline({
+        paused: true,
+        scrollTrigger: {
+          trigger: carouselElement,
+          start: 'top bottom',
+          toggleActions: 'play none none reset'
+        }
+      });
+
+      tl.from(carouselItems, {
+        opacity: 0,
+        y: -48,
+        ease: 'power1.out',
+        duration: 1.2,
+        stagger: { each: 0.2 }
+      });
+    });
+  }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   aboutAnimation();
   phrasesAnimation();
@@ -479,4 +534,6 @@ window.addEventListener('DOMContentLoaded', () => {
   showIntroAnimation();
   showHeroAnimation();
   bgVideoPlayback();
+  headingInViewAnimation();
+  carsouselInViewAnimation();
 });
