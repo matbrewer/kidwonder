@@ -399,68 +399,76 @@ function showIntroAnimation() {
 }
 
 function showHeroAnimation() {
-  let mm = gsap.matchMedia();
-
-  mm.add('(max-width: 767px)', () => {
-    // mobile setup code here...
-    // Remove MatchMedia once video's available
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.show-hero',
-        start: 'top bottom',
-        end: 'top top',
-        scrub: true,
-        pin: false,
-        pinSpacing: false
-      }
-    });
-
-    tl.set('.show-hero-container', { scale: 1 });
+  let tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.show-hero',
+      start: 'top bottom',
+      end: 'top top',
+      scrub: true,
+      pin: false,
+      pinSpacing: false
+    }
   });
 
-  mm.add('(min-width: 768px)', () => {
-    // desktop setup code here...
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.show-hero',
-        start: 'top bottom',
-        end: 'top top',
-        scrub: true,
-        pin: false,
-        pinSpacing: false
-      }
-    });
-
-    tl.set('.show-hero-container', { scale: 0.6 });
-    tl.to('.show-hero-container', {
-      scale: 1,
-      ease: 'power1.out'
-    });
+  tl.set('.show-hero-container', { scale: 0.6 });
+  tl.to('.show-hero-container', {
+    scale: 1,
+    ease: 'power1.out'
   });
 }
 
 function bgVideoPlayback() {
   if (document.querySelector('#bgVideo')) {
-    const video = document.getElementById('bgVideo');
+    let mm = gsap.matchMedia();
 
-    function playVideo() {
-      video.play();
-      // console.log("Play video");
-    }
+    mm.add('(max-width: 767px)', () => {
+      // mobile setup code here...
+      const video = document.getElementById('bgVideoMobile');
 
-    function pauseVideo() {
-      video.pause();
-      // console.log("Pause video");
-    }
+      function playVideo() {
+        video.play();
+        console.log('Play video');
+      }
 
-    ScrollTrigger.create({
-      trigger: '.show-hero',
-      start: 'top bottom',
-      end: 'bottom top',
-      onEnter: playVideo,
-      onLeave: pauseVideo,
-      onEnterBack: playVideo,
-      onLeaveBack: pauseVideo
+      function pauseVideo() {
+        video.pause();
+        console.log('Pause video');
+      }
+
+      ScrollTrigger.create({
+        trigger: '.show-hero',
+        start: 'top bottom',
+        end: 'bottom top',
+        onEnter: playVideo,
+        onLeave: pauseVideo,
+        onEnterBack: playVideo,
+        onLeaveBack: pauseVideo
+      });
+    });
+
+    mm.add('(min-width: 768px)', () => {
+      // desktop setup code here...
+      const video = document.getElementById('bgVideo');
+
+      function playVideo() {
+        video.play();
+        console.log('Play video');
+      }
+
+      function pauseVideo() {
+        video.pause();
+        console.log('Pause video');
+      }
+
+      ScrollTrigger.create({
+        trigger: '.show-hero',
+        start: 'top bottom',
+        end: 'bottom top',
+        onEnter: playVideo,
+        onLeave: pauseVideo,
+        onEnterBack: playVideo,
+        onLeaveBack: pauseVideo
+      });
     });
   }
 }
