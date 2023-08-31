@@ -528,6 +528,18 @@ function carsouselInViewAnimation() {
   }
 }
 
+function getSydneyTime() {
+  if (document.querySelector('#timeInSydney')) {
+    var clock = setInterval(getTime, 1000);
+
+    function getTime() {
+      var d = new Date();
+      var sydneyTime = d.toLocaleTimeString('en-US', { timeZone: 'Australia/Sydney' });
+      document.getElementById('timeInSydney').innerHTML = sydneyTime;
+    }
+  }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   aboutAnimation();
   phrasesAnimation();
@@ -544,4 +556,5 @@ window.addEventListener('DOMContentLoaded', () => {
   bgVideoPlayback();
   headingInViewAnimation();
   carsouselInViewAnimation();
+  getSydneyTime();
 });
