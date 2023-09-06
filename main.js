@@ -540,6 +540,35 @@ function getSydneyTime() {
   }
 }
 
+function inViewImageGradientOverlay() {
+  if (document.querySelector('.has-gradient-overlay')) {
+    const imageOverlayElements = document.querySelectorAll('.has-gradient-overlay');
+
+    imageOverlayElements.forEach((imageOverlayElement) => {
+      const gradientOverlay = imageOverlayElement.querySelector('.gradient-overlay');
+
+      let tl = gsap.timeline({
+        paused: true,
+        scrollTrigger: {
+          trigger: imageOverlayElement,
+          start: '10% bottom',
+          toggleActions: 'play none none none'
+        }
+      });
+
+      // TODO: move out custom ease
+      CustomEase.create('imageReveal', 'M0,0 C1,0 0.25,0.995 1,1 ');
+
+      tl.from(gradientOverlay, {
+        y: '0%',
+        ease: 'imageReveal',
+        duration: 1
+      });
+      tl.set(gradientOverlay, { autoAlpha: 0 });
+    });
+  }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   aboutAnimation();
   phrasesAnimation();
@@ -557,4 +586,5 @@ window.addEventListener('DOMContentLoaded', () => {
   headingInViewAnimation();
   carsouselInViewAnimation();
   getSydneyTime();
+  inViewImageGradientOverlay();
 });
