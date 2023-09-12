@@ -569,6 +569,22 @@ function inViewImageGradientOverlay() {
   }
 }
 
+function postImageGridParallax() {
+  if (document.querySelector('.post-image-grid__parallax-wrapper')) {
+    $('.post-image-grid__image-container--3by2, .post-image-grid__image-container--1by1').each(function (index) {
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: $(this),
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
+      tl.fromTo($(this).find('.post-image-grid__parallax-wrapper'), { yPercent: -10 }, { yPercent: 10, ease: 'none' });
+    });
+  }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   aboutAnimation();
   phrasesAnimation();
@@ -587,4 +603,5 @@ window.addEventListener('DOMContentLoaded', () => {
   carsouselInViewAnimation();
   getSydneyTime();
   inViewImageGradientOverlay();
+  postImageGridParallax();
 });
