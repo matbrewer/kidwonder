@@ -1,3 +1,65 @@
+// Menu & sign up
+
+function toggleDrawer() {
+  const hideDrawerBtn = document.querySelector('.close-btn');
+  const drawerContainer = document.querySelector('.drawer-container');
+  const overlay = document.querySelector('.dialog-overlay');
+  const drawer = document.querySelector('.drawer');
+  const menu = document.querySelector('.drawer .menu');
+  const signup = document.querySelector('.drawer .signup');
+
+  const showMenuBtn = document.querySelector('.menu-btn');
+  const showSignupBtns = document.querySelectorAll('.signup-btn');
+
+  showMenuBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    gsap.set(menu, { display: 'flex' });
+    gsap.set(signup, { display: 'none' });
+    showDrawerAnimation.restart();
+  });
+
+  showSignupBtns.forEach((showSignupBtn) => {
+    showSignupBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      gsap.set(signup, { display: 'flex' });
+      gsap.set(menu, { display: 'none' });
+      showDrawerAnimation.restart();
+    });
+  });
+
+  hideDrawerBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    hideDrawerAnimation.restart();
+  });
+
+  overlay.addEventListener('click', function () {
+    hideDrawerAnimation.restart();
+  });
+
+  const showDrawerAnimation = gsap
+    .timeline({
+      paused: true,
+      defaults: {
+        ease: 'power1.out'
+      }
+    })
+    .set(drawerContainer, { display: 'block' })
+    .set(drawer, { xPercent: 100, x: 0 })
+    .to(overlay, { duration: 0.5, opacity: 1 })
+    .to(drawer, { duration: 0.2, xPercent: 0 }, '<0.2');
+
+  const hideDrawerAnimation = gsap
+    .timeline({
+      paused: true,
+      defaults: {
+        ease: 'power1.out'
+      }
+    })
+    .to(drawer, { delay: 0.2, duration: 0.2, xPercent: 100 })
+    .to(overlay, { duration: 0.5, opacity: 0 }, '<0.2')
+    .set(drawerContainer, { display: 'none' });
+}
+
 // Animations
 
 function fullScreenHero() {
@@ -597,6 +659,7 @@ function postImageGridParallax() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  toggleDrawer();
   aboutAnimation();
   phrasesAnimation();
   heroOutroAnimation();
