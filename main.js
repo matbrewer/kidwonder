@@ -10,6 +10,7 @@ function toggleDrawer() {
 
   const showMenuBtn = document.querySelector('.menu-btn');
   const showSignupBtns = document.querySelectorAll('.signup-btn');
+  const toggleSignupBtn = document.querySelector('.toggle-signup');
 
   showMenuBtn.addEventListener('click', function (e) {
     e.preventDefault();
@@ -25,6 +26,11 @@ function toggleDrawer() {
       gsap.set(menu, { display: 'none' });
       showDrawerAnimation.restart();
     });
+  });
+
+  toggleSignupBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    swapDrawerAnimation.restart();
   });
 
   hideDrawerBtn.addEventListener('click', function (e) {
@@ -58,6 +64,18 @@ function toggleDrawer() {
     .to(drawer, { delay: 0.2, duration: 0.2, xPercent: 100 })
     .to(overlay, { duration: 0.5, opacity: 0 }, '<0.2')
     .set(drawerContainer, { display: 'none' });
+
+  const swapDrawerAnimation = gsap
+    .timeline({
+      paused: true,
+      defaults: {
+        ease: 'power1.out'
+      }
+    })
+    .to(drawer, { delay: 0.2, duration: 0.2, xPercent: 100 })
+    .set(signup, { display: 'flex' })
+    .set(menu, { display: 'none' })
+    .to(drawer, { delay: 0.2, duration: 0.2, xPercent: 0 });
 }
 
 // Animations
