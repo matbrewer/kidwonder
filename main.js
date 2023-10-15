@@ -509,7 +509,7 @@ function showHeroAnimation() {
 }
 
 function bgVideoPlayback() {
-  if (document.querySelector('#bgVideo')) {
+  if (document.querySelector('.show-hero')) {
     let mm = gsap.matchMedia();
 
     mm.add('(max-width: 767px)', () => {
