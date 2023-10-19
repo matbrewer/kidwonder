@@ -592,7 +592,7 @@ function headingInViewAnimation() {
 }
 
 function carsouselInViewAnimation() {
-  if (document.querySelector('.swiper')) {
+  if (document.querySelector('.slider-main_component')) {
     const carouselElements = document.querySelectorAll('.swiper');
 
     carouselElements.forEach((carouselElement) => {
