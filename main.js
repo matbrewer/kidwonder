@@ -80,6 +80,168 @@
 
   // Animations
 
+  let heroIntroAnimation;
+
+  function setHeroIntroAnimation() {
+    // Get the element with the ID 'heroIntro'
+    const heroIntro = document.getElementById('heroIntro');
+
+    // Specify the path to your Lottie animation JSON file
+    const animationPath =
+      'https://uploads-ssl.webflow.com/64b36a0c61b7437799a31357/65574b21f3cb4a42120bf247_kw-hero-intro.json';
+
+    // Configure the Lottie options (you can adjust these based on your needs)
+    const animationOptions = {
+      container: heroIntro,
+      renderer: 'svg',
+      loop: false, // Set to true if you want the animation to loop
+      autoplay: false, // Set to true if you want the animation to play automatically
+      path: animationPath,
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice'
+      }
+    };
+
+    // Create the Lottie animation
+    heroIntroAnimation = lottie.loadAnimation(animationOptions);
+  }
+
+  function playHeroIntroAnimation() {
+    // Check if the 'anim' object is defined
+    if (heroIntroAnimation) {
+      // You can control the animation using the 'heroIntroAnimation' object
+      heroIntroAnimation.play();
+      // Other control commands...
+    } else {
+      console.error('Lottie animation not initialized.');
+    }
+  }
+
+  function homeIntroAnimation() {
+    const body = document.body;
+    const aoc = document.getElementById('aoc');
+    const introWrapper = document.getElementById('heroIntro');
+    const heroBullets = document.querySelectorAll('.hero-bullet');
+    const heroScroll = document.querySelector('.scroll');
+
+    let tl = gsap.timeline({
+      // paused: true
+    });
+
+    tl.set(body, {
+      overflow: 'hidden',
+      width: '100vw',
+      position: 'fixed'
+    });
+    tl.to(aoc, {
+      duration: 0.5,
+      ease: 'power1.out',
+      delay: 3,
+      autoAlpha: 0,
+      onComplete: playHeroIntroAnimation
+    });
+    tl.set(
+      body,
+      {
+        position: 'relative'
+      },
+      '<'
+    );
+    tl.to({}, { duration: 3.5 }); // empty tween for lottie animation
+    tl.from(
+      heroBullets,
+      {
+        duration: 0.5,
+        autoAlpha: 0,
+        y: 24,
+        stagger: {
+          each: 0.175,
+          ease: 'none'
+        }
+      },
+      '<2'
+    );
+    tl.from(
+      heroScroll,
+      {
+        duration: 2,
+        autoAlpha: 0,
+        y: 32
+      },
+      '<'
+    );
+    tl.set(
+      introWrapper,
+      {
+        autoAlpha: 0
+      },
+      '>'
+    );
+    tl.set(body, {
+      overflow: 'auto'
+    });
+  }
+
+  function heroOutroScrollAnimation() {
+    if (document.querySelector('.hero-section')) {
+      // set the section container height
+      gsap.set('.hero-section', { height: '200vh' });
+
+      LottieScrollTrigger({
+        target: '#heroOutro',
+        path: 'https://uploads-ssl.webflow.com/64b36a0c61b7437799a31357/64da6a8538d8c3f050974311_kw-hero-outro-2.json',
+        trigger: '.hero-container',
+        pin: true,
+        pinSpacing: false,
+        scrub: true // seconds it takes for the playhead to "catch up"
+        // you can also add ANY ScrollTrigger values here too, like trigger, start, end, onEnter, onLeave, onUpdate, etc. See https://greensock.com/docs/v3/Plugins/ScrollTrigger
+      });
+
+      function LottieScrollTrigger(vars) {
+        let playhead = { frame: 0 },
+          target = gsap.utils.toArray(vars.target)[0],
+          // speeds = { slow: "+=2000", medium: "+=1000", fast: "+=500" },
+          st = {
+            trigger: target,
+            pin: true,
+            start: 'top top',
+            end: '200% top'
+          },
+          ctx = gsap.context && gsap.context(),
+          animation = lottie.loadAnimation({
+            container: target,
+            renderer: vars.renderer || 'svg',
+            loop: false,
+            autoplay: false,
+            path: vars.path,
+            rendererSettings: vars.rendererSettings || {
+              preserveAspectRatio: 'xMidYMid slice'
+            }
+          });
+        for (let p in vars) {
+          // let users override the ScrollTrigger defaults
+          st[p] = vars[p];
+        }
+        animation.addEventListener('DOMLoaded', function () {
+          let createTween = function () {
+            animation.frameTween = gsap.to(playhead, {
+              frame: animation.totalFrames - 1,
+              ease: 'none',
+              onUpdate: () => animation.goToAndStop(playhead.frame, true),
+              scrollTrigger: st
+            });
+            return () => animation.destroy && animation.destroy();
+          };
+          ctx && ctx.add ? ctx.add(createTween) : createTween();
+          // in case there are any other ScrollTriggers on the page and the loading of this Lottie asset caused layout changes
+          ScrollTrigger.sort();
+          ScrollTrigger.refresh();
+        });
+        return animation;
+      }
+    }
+  }
+
   function fullScreenHero() {
     if (document.querySelector('.info-hero-img-scale')) {
       gsap.to('.info-hero-img-scale', {
@@ -1325,7 +1487,15 @@
 
   function homePage() {
     // homePage
-    heroOutroAnimation();
+    setHeroIntroAnimation();
+    heroOutroScrollAnimation();
+
+    window.addEventListener('load', () => {
+      console.log('page is fully loaded');
+      homeIntroAnimation();
+    });
+
+    // heroOutroAnimation();
     // scrollArrow();
     masterTimeline(); // get better name
     millionQuestions();
