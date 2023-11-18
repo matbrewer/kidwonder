@@ -1365,11 +1365,11 @@
   function init() {
     // global
     toggleDrawer();
-    if (document.body.classList.contains('homePage')) {
+    if (document.body.classList.contains('homepage')) {
       initHomePage();
-    } else if (document.querySelector('.contentPage')) {
+    } else if (document.querySelector('.content-page')) {
       initContentPage(); // about & partnerships
-    } else if (document.querySelector('.postPage')) {
+    } else if (document.querySelector('.post-page')) {
       initPostPage(); // articlePage / postPage
     }
   }
