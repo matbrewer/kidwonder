@@ -1,6 +1,6 @@
 (function () {
   // Menu & sign up
-  function toggleDrawer() {
+  function navDrawer() {
     const hideDrawerBtn = document.querySelector('.close-btn');
     const drawerContainer = document.querySelector('.drawer-container');
     const overlay = document.querySelector('.dialog-overlay');
@@ -1323,30 +1323,36 @@
     });
   }
 
-  function initHomePage() {
+  function homePage() {
     // homePage
     heroOutroAnimation();
     // scrollArrow();
-    aboutAnimation();
-    phrasesAnimation();
-    inViewImageScale();
-    inViewImageParallax();
-    showIntroAnimation();
-    showHeroAnimation();
-    bgVideoPlayback();
-    carousel();
-    carsouselInViewAnimation();
-    showVideoAnimation();
-    bgVideoPlayPause();
-    millionQuestions();
     masterTimeline(); // get better name
+    millionQuestions();
+
+    // aboutAnimation();
+    // headingInViewAnimation();
+    // inViewImageScale();
+    // inViewImageParallax();
+
+    // showIntroAnimation();
+    // showHeroAnimation();
+    showVideoAnimation();
+
+    phrasesAnimation();
+
     inspirationHeroCardHover();
-    homeCardCarousel();
+    // carsouselInViewAnimation();
+
+    // bgVideoPlayback();
+    bgVideoPlayPause();
+
+    // carousel();
     growingmindsCarousel();
-    headingInViewAnimation();
+    homeCardCarousel();
   }
 
-  function initContentPage() {
+  function contentPage() {
     // aboutPage
     getSydneyTime();
 
@@ -1354,7 +1360,7 @@
     inViewImageGradientOverlay();
   }
 
-  function initPostPage() {
+  function postPage() {
     // articlePage / postPage
     articleImageParallax();
     articleInfiniteMarquee();
@@ -1364,13 +1370,13 @@
 
   function init() {
     // global
-    toggleDrawer();
+    navDrawer();
     if (document.body.classList.contains('homepage')) {
-      initHomePage();
-    } else if (document.querySelector('.content-page')) {
-      initContentPage(); // about & partnerships
-    } else if (document.querySelector('.post-page')) {
-      initPostPage(); // articlePage / postPage
+      homePage();
+    } else if (document.body.classList.contains('content-page')) {
+      contentPage(); // about & partnerships
+    } else if (document.body.classList.contains('post-page')) {
+      postPage(); // articlePage / postPage
     }
   }
 
