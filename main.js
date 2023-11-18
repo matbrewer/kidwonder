@@ -1362,10 +1362,11 @@
 
   function postPage() {
     // articlePage / postPage
-    articleImageParallax();
-    articleInfiniteMarquee();
+    // articleImageParallax();
+    // articleInfiniteMarquee();
+    // fullScreenHero();
+
     postImageGridParallax();
-    fullScreenHero();
   }
 
   function init() {
