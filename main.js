@@ -1491,7 +1491,7 @@
     heroOutroScrollAnimation();
 
     window.addEventListener('load', () => {
-      console.log('page is fully loaded');
+      console.log('loaded'); // TODO get rid when confident
       homeIntroAnimation();
     });
 
