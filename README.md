@@ -7,4 +7,4 @@ https://www.jsdelivr.com/github
 
 To produce links like this...
 
-https://cdn.jsdelivr.net/gh/matbrewer/kidwonder@1.0.1/dist/main.min.js
+https://cdn.jsdelivr.net/gh/matbrewer/kidwonder@1.0.1/main.min.js
