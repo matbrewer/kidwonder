@@ -671,7 +671,7 @@
     }
   }
 
-  function bgVideoPlayback() {
+  function bgVideoPlaybackOriginal() {
     if (document.querySelector('.show-hero')) {
       let mm = gsap.matchMedia();
 
@@ -1199,7 +1199,7 @@
     }
   }
 
-  function bgVideoPlayPause() {
+  function bgVideoPlayback() {
     if (document.querySelector('.show-hero__kw')) {
       let mm = gsap.matchMedia();
 
@@ -1514,8 +1514,7 @@
     inspirationHeroCardHover();
     // carsouselInViewAnimation();
 
-    // bgVideoPlayback();
-    bgVideoPlayPause();
+    // bgVideoPlaybackOriginal();
 
     // carousel();
     growingmindsCarousel();
@@ -1542,6 +1541,7 @@
   function init() {
     // global
     navDrawer();
+    bgVideoPlayback();
     if (document.body.classList.contains('homepage')) {
       homePage();
     } else if (document.body.classList.contains('content-page')) {
