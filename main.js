@@ -1489,6 +1489,26 @@
     });
   }
 
+  function scaleCardImageOnHover() {
+    if (document.querySelector('.card')) {
+      const cards = document.querySelectorAll('.card');
+
+      cards.forEach((card) => {
+        // Add event listener for mouseover
+        card.addEventListener('mouseover', function () {
+          const willScale = card.querySelector('.scale');
+          willScale.classList.add('hover');
+        });
+
+        // Add event listener for mouseout
+        card.addEventListener('mouseout', function () {
+          const willScale = card.querySelector('.scale');
+          willScale.classList.remove('hover');
+        });
+      });
+    }
+  }
+
   function homePage() {
     // homePage
     setHeroIntroAnimation();
@@ -1546,6 +1566,9 @@
     // global
     navDrawer();
     bgVideoPlayback();
+    scaleCardImageOnHover();
+
+    // page specific
     if (document.body.classList.contains('homepage')) {
       homePage();
     } else if (document.body.classList.contains('content-page')) {
