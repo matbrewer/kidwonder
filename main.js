@@ -1046,8 +1046,10 @@
 
       while (totalRectangles < numRectangles) {
         var x = Common.random(20, render.canvas.width - 20);
-        var y = Common.random(20, render.canvas.height - 20);
+        var y = Common.random(50, render.canvas.height - 50);
         var data = rectangleData[dataIndex % rectangleData.length]; // Cycle through rectangleData
+        var angle = Common.random(-0.4, 0.4);
+        var friction = Common.random(0.0, 0.03); // Adjust the range as needed
 
         var rect = Bodies.rectangle(x, y, data.width, data.height, {
           chamfer: { radius: 32 }, // Border radius
@@ -1055,7 +1057,9 @@
             sprite: {
               texture: data.texture
             }
-          }
+          },
+          angle: angle,
+          frictionAir: friction
         });
 
         objects.push(rect);
