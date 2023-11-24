@@ -1185,8 +1185,8 @@
         scrollTrigger: {
           trigger: '.show-hero__kw',
           start: 'top 115%',
-          end: 'top 5%',
-          scrub: 1,
+          end: 'top 8%',
+          scrub: 1.5,
           pin: false,
           pinSpacing: false
         }
