@@ -1644,16 +1644,16 @@
   }
 
   function contentPage() {
-    // exhibitions
+    // about, exhibitions, inspired,
     window.addEventListener('load', () => {
       pageLoadAnimation();
+
+      // aboutPage, partnerships & contact
+      inViewImageGradientOverlay();
     });
 
     // aboutPage
     getSydneyTime();
-
-    // aboutPage, partnerships & contact
-    inViewImageGradientOverlay();
   }
 
   function postPage() {
@@ -1675,7 +1675,7 @@
     if (document.body.classList.contains('homepage')) {
       homePage();
     } else if (document.body.classList.contains('content-page')) {
-      contentPage(); // about, exhibitions, partnerships & contact
+      contentPage(); // about, exhibitions, inspired, partnerships & contact
     } else if (document.body.classList.contains('post-page')) {
       postPage(); // articlePage/postPage
     }
