@@ -1509,6 +1509,104 @@
     }
   }
 
+  function removePreloader() {
+    if (document.querySelector('#preloader')) {
+      const preloader = document.getElementById('preloader');
+
+      let tl = gsap.timeline({
+        // paused: true
+      });
+
+      tl.to(preloader, {
+        delay: 0.4,
+        duration: 0.5,
+        ease: 'power1.out',
+        autoAlpha: 0
+      });
+
+      return tl;
+    }
+  }
+
+  function splitTextCharacters() {
+    if (document.querySelector('[data-splitText="chars"]')) {
+      const textEl = document.querySelector('[data-splitText="chars"]');
+      const splitText = new SplitType(textEl, {
+        types: 'words, chars',
+        tagName: 'span'
+      });
+
+      let tl = gsap.timeline({
+        // repeat: -1,
+        // repeatDelay: 0.5,
+        // paused: false
+      });
+
+      gsap.set(splitText.words, { overflow: 'hidden' });
+
+      tl.from(splitText.chars, {
+        yPercent: 100,
+        autoAlpha: 0,
+        duration: 0.2,
+        ease: 'power1.out',
+        stagger: {
+          // each: 0.025,
+          amount: 0.25, // total amount
+          ease: 'power1.in'
+        }
+      });
+      return tl;
+    }
+  }
+
+  function splitTextWords() {
+    if (document.querySelector('[data-splitText="words"]')) {
+      const textElements = document.querySelectorAll('[data-splitText="words"]');
+      const timelines = [];
+
+      textElements.forEach((textEl) => {
+        const splitText = new SplitType(textEl, {
+          types: 'lines, words',
+          tagName: 'span'
+        });
+
+        let tl = gsap.timeline({});
+
+        gsap.set(splitText.lines, { overflow: 'hidden' });
+
+        tl.from(splitText.words, {
+          yPercent: 100,
+          autoAlpha: 0,
+          duration: 0.3,
+          ease: 'power1.out',
+          stagger: {
+            each: 0.01,
+            // amount: 0.7, // total amount
+            ease: 'none'
+          }
+        });
+
+        timelines.push(tl);
+      });
+
+      return timelines; // Return an array of timelines
+    }
+  }
+
+  function pageLoadAnimation() {
+    const splitTextWordsTimelines = splitTextWords();
+
+    var master = gsap.timeline({
+      // paused: true,
+    });
+
+    master.add(removePreloader());
+    master.add(splitTextCharacters(), '>-0.4');
+    splitTextWordsTimelines.forEach((timeline) => {
+      master.add(timeline, '<25%');
+    });
+  }
+
   function homePage() {
     // homePage
     setHeroIntroAnimation();
@@ -1546,10 +1644,15 @@
   }
 
   function contentPage() {
+    // exhibitions
+    window.addEventListener('load', () => {
+      pageLoadAnimation();
+    });
+
     // aboutPage
     getSydneyTime();
 
-    // aboutPage & partnershipsPage
+    // aboutPage, partnerships & contact
     inViewImageGradientOverlay();
   }
 
@@ -1572,9 +1675,9 @@
     if (document.body.classList.contains('homepage')) {
       homePage();
     } else if (document.body.classList.contains('content-page')) {
-      contentPage(); // about & partnerships
+      contentPage(); // about, exhibitions, partnerships & contact
     } else if (document.body.classList.contains('post-page')) {
-      postPage(); // articlePage / postPage
+      postPage(); // articlePage/postPage
     }
   }
 
