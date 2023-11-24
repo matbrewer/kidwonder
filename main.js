@@ -820,6 +820,8 @@
         });
         tl.set(gradientOverlay, { autoAlpha: 0 });
       });
+
+      return tl;
     }
   }
 
@@ -1605,6 +1607,7 @@
     splitTextWordsTimelines.forEach((timeline) => {
       master.add(timeline, '<25%');
     });
+    master.add(inViewImageGradientOverlay());
   }
 
   function homePage() {
@@ -1647,9 +1650,6 @@
     // about, exhibitions, inspired,
     window.addEventListener('load', () => {
       pageLoadAnimation();
-
-      // aboutPage, partnerships & contact
-      inViewImageGradientOverlay();
     });
 
     // aboutPage
