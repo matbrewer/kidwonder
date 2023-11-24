@@ -831,7 +831,7 @@
             trigger: $(this),
             start: 'top bottom',
             end: 'bottom top',
-            scrub: 1
+            scrub: 1.5
           }
         });
         tl.fromTo(
@@ -1185,7 +1185,7 @@
         scrollTrigger: {
           trigger: '.show-hero__kw',
           start: 'top 115%',
-          end: 'top 10%',
+          end: 'top 5%',
           scrub: 1,
           pin: false,
           pinSpacing: false
