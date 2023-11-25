@@ -796,7 +796,7 @@
 
   function inViewImageGradientOverlay() {
     if (document.querySelector('.has-gradient-overlay')) {
-      const imageOverlayElements = document.querySelectorAll('.has-gradient-overlay');
+      const imageOverlayElements = gsap.utils.toArray('.has-gradient-overlay');
 
       imageOverlayElements.forEach((imageOverlayElement) => {
         const gradientOverlay = imageOverlayElement.querySelector('.gradient-overlay');
@@ -813,8 +813,8 @@
         // TODO: move out custom ease
         CustomEase.create('imageReveal', 'M0,0 C1,0 0.25,0.995 1,1 ');
 
-        tl.from(gradientOverlay, {
-          y: '0%',
+        tl.to(gradientOverlay, {
+          y: '98%',
           ease: 'imageReveal',
           duration: 1
         });
@@ -1597,7 +1597,7 @@
     const splitTextWordsTimelines = splitTextWords();
 
     var master = gsap.timeline({
-      // paused: true,
+      onComplete: inViewImageGradientOverlay
     });
 
     master.add(removePreloader());
