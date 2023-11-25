@@ -1653,7 +1653,8 @@
     getSydneyTime();
 
     // aboutPage, partnerships & contact
-    inViewImageGradientOverlay();
+
+    // inViewImageGradientOverlay();
   }
 
   function postPage() {
