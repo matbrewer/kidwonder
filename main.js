@@ -1653,19 +1653,21 @@
   }
 
   function contentPage() {
-    // about, exhibitions, inspired,
+    // about, exhibitions, inspired, partners, contact, terms & privacy
     window.addEventListener('load', () => {
       pageLoadAnimation();
     });
 
     // aboutPage
     getSydneyTime();
-
-    // aboutPage, partnerships & contact
   }
 
   function postPage() {
     // articlePage / postPage
+    window.addEventListener('load', () => {
+      pageLoadAnimation();
+    });
+
     // articleImageParallax();
     // articleInfiniteMarquee();
     // fullScreenHero();
