@@ -1595,7 +1595,7 @@
 
   function setInViewGradientOverlay() {
     let tl = gsap.timeline({
-      onStart: inViewImageGradientOverlay
+      onComplete: inViewImageGradientOverlay
     });
 
     return tl;
