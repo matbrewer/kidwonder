@@ -805,7 +805,7 @@
           paused: true,
           scrollTrigger: {
             trigger: imageOverlayElement,
-            start: '10% bottom',
+            start: '20% bottom',
             toggleActions: 'play none none none'
           }
         });
