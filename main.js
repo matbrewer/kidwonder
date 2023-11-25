@@ -1604,15 +1604,15 @@
   function pageLoadAnimation() {
     const splitTextWordsTimelines = splitTextWords();
 
-    var master = gsap.timeline({
-      // onComplete: inViewImageGradientOverlay
-    });
+    var master = gsap.timeline({});
 
     master.add(removePreloader());
     master.add(splitTextCharacters(), '>-0.4');
-    splitTextWordsTimelines.forEach((timeline) => {
-      master.add(timeline, '<25%');
-    });
+    if (splitTextWordsTimelines && splitTextWordsTimelines.length > 0) {
+      splitTextWordsTimelines.forEach((timeline) => {
+        master.add(timeline, '<25%');
+      });
+    }
     master.add(setInViewGradientOverlay(), '<');
   }
 
@@ -1662,8 +1662,6 @@
     getSydneyTime();
 
     // aboutPage, partnerships & contact
-
-    // inViewImageGradientOverlay();
   }
 
   function postPage() {
