@@ -1613,7 +1613,7 @@
     splitTextWordsTimelines.forEach((timeline) => {
       master.add(timeline, '<25%');
     });
-    master.add(setInViewGradientOverlay());
+    master.add(setInViewGradientOverlay(), '<');
   }
 
   function homePage() {
