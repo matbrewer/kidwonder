@@ -1593,11 +1593,19 @@
     }
   }
 
+  // function setInViewGradientOverlay() {
+  //   let tl = gsap.timeline({
+  //     onStart: inViewImageGradientOverlay
+  //   });
+
+  //   return tl;
+  // }
+
   function pageLoadAnimation() {
     const splitTextWordsTimelines = splitTextWords();
 
     var master = gsap.timeline({
-      onComplete: inViewImageGradientOverlay
+      // onComplete: inViewImageGradientOverlay
     });
 
     master.add(removePreloader());
@@ -1605,6 +1613,7 @@
     splitTextWordsTimelines.forEach((timeline) => {
       master.add(timeline, '<25%');
     });
+    master.add(inViewImageGradientOverlay());
   }
 
   function homePage() {
