@@ -797,7 +797,6 @@
   function inViewImageGradientOverlay() {
     if (document.querySelector('.has-gradient-overlay')) {
       const imageOverlayElements = document.querySelectorAll('.has-gradient-overlay');
-      const timelines = [];
 
       imageOverlayElements.forEach((imageOverlayElement) => {
         const gradientOverlay = imageOverlayElement.querySelector('.gradient-overlay');
@@ -820,11 +819,7 @@
           duration: 1
         });
         tl.set(gradientOverlay, { autoAlpha: 0 });
-
-        timelines.push(tl);
       });
-
-      return timelines; // Return an array of timelines
     }
   }
 
@@ -1600,7 +1595,6 @@
 
   function pageLoadAnimation() {
     const splitTextWordsTimelines = splitTextWords();
-    const imageGradientTimelines = inViewImageGradientOverlay();
 
     var master = gsap.timeline({
       // paused: true,
@@ -1610,9 +1604,6 @@
     master.add(splitTextCharacters(), '>-0.4');
     splitTextWordsTimelines.forEach((timeline) => {
       master.add(timeline, '<25%');
-    });
-    imageGradientTimelines.forEach((timeline) => {
-      master.add(timeline);
     });
   }
 
@@ -1660,6 +1651,9 @@
 
     // aboutPage
     getSydneyTime();
+
+    // aboutPage, partnerships & contact
+    inViewImageGradientOverlay();
   }
 
   function postPage() {
