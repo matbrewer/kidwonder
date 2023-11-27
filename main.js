@@ -1327,26 +1327,26 @@
     }
   }
 
-  function masterTimeline() {
-    // stitch them together in a master timeline...
-    const individualTimelines = splitTextLines();
+  function homeWhatWeDoAnimation() {
+    const splitTextWordsTimelines = splitTextWords();
 
     var master = gsap.timeline({
-      // repeat: -1,
-      // repeatDelay: 3,
       paused: true
     });
 
-    master.add(splitTextChars());
-    individualTimelines.forEach((timeline) => {
-      master.add(timeline, 0.5);
-    });
+    master.add(splitTextCharacters(0.75));
+    if (splitTextWordsTimelines && splitTextWordsTimelines.length > 0) {
+      splitTextWordsTimelines.forEach((timeline) => {
+        master.add(timeline, '<25%');
+      });
+    }
+    // master.add(setInViewGradientOverlay(), '<');
 
     ScrollTrigger.create({
       trigger: '.whatwedo__heading',
-      start: 'top 80%',
+      start: 'top 70%',
       onEnter: () => {
-        // Play the master timeline when the trigger element is in view
+        // Play the timeline when the trigger element is in view
         master.play();
       }
     });
@@ -1528,7 +1528,7 @@
     }
   }
 
-  function splitTextCharacters() {
+  function splitTextCharacters(staggerAmount) {
     if (document.querySelector('[data-splitText="chars"]')) {
       const textEl = document.querySelector('[data-splitText="chars"]');
       const splitText = new SplitType(textEl, {
@@ -1551,7 +1551,7 @@
         ease: 'power1.out',
         stagger: {
           // each: 0.025,
-          amount: 0.25, // total amount
+          amount: staggerAmount,
           ease: 'power1.in'
         }
       });
@@ -1607,7 +1607,7 @@
     var master = gsap.timeline({});
 
     master.add(removePreloader());
-    master.add(splitTextCharacters(), '>-0.4');
+    master.add(splitTextCharacters(0.25), '>-0.4');
     if (splitTextWordsTimelines && splitTextWordsTimelines.length > 0) {
       splitTextWordsTimelines.forEach((timeline) => {
         master.add(timeline, '<25%');
@@ -1628,7 +1628,7 @@
 
     // heroOutroAnimation();
     // scrollArrow();
-    masterTimeline(); // get better name
+    homeWhatWeDoAnimation();
     millionQuestions();
 
     // aboutAnimation();
