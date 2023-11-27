@@ -1509,6 +1509,27 @@
     }
   }
 
+  function batchInViewGradientReveal() {
+    if (document.querySelector('.has-gradient-overlay')) {
+      CustomEase.create('imageReveal', 'M0,0 C1,0 0.25,0.995 1,1 ');
+
+      ScrollTrigger.batch('.gradient-overlay', {
+        // batchMax: 5,   // maximum batch size (targets)
+        start: '20% bottom',
+        once: true,
+        onEnter: (batch) => {
+          let tl = gsap.timeline({});
+          tl.to(batch, {
+            y: '98%',
+            ease: 'imageReveal',
+            duration: 1,
+            stagger: 0.15
+          }).set(batch, { autoAlpha: 0 });
+        }
+      });
+    }
+  }
+
   function removePreloader() {
     if (document.querySelector('#preloader')) {
       const preloader = document.getElementById('preloader');
@@ -1630,6 +1651,7 @@
     // scrollArrow();
     homeWhatWeDoAnimation();
     millionQuestions();
+    batchInViewGradientReveal();
 
     // aboutAnimation();
     // headingInViewAnimation();
