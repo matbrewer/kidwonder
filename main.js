@@ -1435,7 +1435,7 @@
       if ($(this).attr('loop-mode') === 'true') {
         loopMode = true;
       }
-      let sliderDuration = 260;
+      let sliderDuration = 500;
       if ($(this).attr('slider-duration') !== undefined) {
         sliderDuration = +$(this).attr('slider-duration');
       }
@@ -1484,7 +1484,8 @@
         navigation: false,
         scrollbar: false,
         slideActiveClass: 'is-active',
-        slideDuplicateActiveClass: 'is-active'
+        slideDuplicateActiveClass: 'is-active',
+        slidesOffsetAfter: 16
       });
     });
   }
