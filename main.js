@@ -82,6 +82,8 @@
 
   let heroIntroAnimation;
 
+  CustomEase.create('imageReveal', 'M0,0 C1,0 0.25,0.995 1,1 ');
+
   function setHeroIntroAnimation() {
     // Get the element with the ID 'heroIntro'
     const heroIntro = document.getElementById('heroIntro');
@@ -170,6 +172,7 @@
       },
       '<'
     );
+    tl.add(actionBtnAnimateIn(), '<');
     tl.set(
       introWrapper,
       {
@@ -809,9 +812,6 @@
             toggleActions: 'play none none none'
           }
         });
-
-        // TODO: move out custom ease
-        CustomEase.create('imageReveal', 'M0,0 C1,0 0.25,0.995 1,1 ');
 
         tl.to(gradientOverlay, {
           y: '98%',
@@ -1512,8 +1512,6 @@
 
   function batchInViewGradientReveal() {
     if (document.querySelector('.has-gradient-overlay')) {
-      CustomEase.create('imageReveal', 'M0,0 C1,0 0.25,0.995 1,1 ');
-
       ScrollTrigger.batch('.gradient-overlay', {
         // batchMax: 5,   // maximum batch size (targets)
         start: '20% bottom',
@@ -1623,6 +1621,42 @@
     return tl;
   }
 
+  function rotateActionBtnOnScroll() {
+    if (document.querySelector('.action-btn')) {
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.site-wrap',
+          pin: false,
+          scrub: 1,
+          start: 'top top',
+          end: '+=10000'
+        }
+      });
+
+      tl.to('.action-btn', {
+        rotation: 360 * 3,
+        duration: 1,
+        ease: 'none'
+      });
+    }
+  }
+
+  function actionBtnAnimateIn() {
+    if (document.querySelector('.action-btn')) {
+      gsap.set('.action-btn', {
+        scale: 0
+      });
+
+      let tl = gsap.to('.action-btn', {
+        duration: 1,
+        // delay: 2,
+        scale: 1,
+        ease: 'imageReveal'
+      });
+      return tl;
+    }
+  }
+
   function pageLoadAnimation() {
     const splitTextWordsTimelines = splitTextWords();
 
@@ -1636,6 +1670,7 @@
       });
     }
     master.add(setInViewGradientOverlay(), '<');
+    master.add(actionBtnAnimateIn(), '<');
   }
 
   function homePage() {
@@ -1703,6 +1738,7 @@
     navDrawer();
     bgVideoPlayback();
     scaleCardImageOnHover();
+    rotateActionBtnOnScroll();
 
     // page specific
     if (document.body.classList.contains('homepage')) {
