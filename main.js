@@ -172,7 +172,6 @@
       },
       '<'
     );
-    tl.add(actionBtnAnimateIn(), '<');
     tl.set(
       introWrapper,
       {
@@ -183,6 +182,7 @@
     tl.set(body, {
       overflow: 'auto'
     });
+    tl.add(actionBtnAnimateIn(), '<');
   }
 
   function heroOutroScrollAnimation() {
