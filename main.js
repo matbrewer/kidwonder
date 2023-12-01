@@ -1657,6 +1657,14 @@
     }
   }
 
+  function getCopyrightYear() {
+    if (document.querySelector('.year')) {
+      const d = new Date();
+      let year = d.getFullYear();
+      document.getElementsByClassName('year')[0].innerHTML = year;
+    }
+  }
+
   function pageLoadAnimation() {
     const splitTextWordsTimelines = splitTextWords();
 
@@ -1739,6 +1747,7 @@
     bgVideoPlayback();
     scaleCardImageOnHover();
     rotateActionBtnOnScroll();
+    getCopyrightYear();
 
     // page specific
     if (document.body.classList.contains('homepage')) {
