@@ -716,9 +716,10 @@
         const video = document.getElementById('bgVideoMobile');
 
         function playVideo() {
+          // setTimeout fix for Safari autoplay
           setTimeout(function () {
             video.play();
-            console.log('Play video with setTimeout');
+            console.log('Play video');
           }, 50);
         }
 
