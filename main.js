@@ -716,8 +716,10 @@
         const video = document.getElementById('bgVideoMobile');
 
         function playVideo() {
-          video.play();
-          console.log('Play video');
+          setTimeout(function () {
+            video.play();
+            console.log('Play video with setTimeout');
+          }, 50);
         }
 
         function pauseVideo() {
