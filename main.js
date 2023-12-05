@@ -716,11 +716,8 @@
         const video = document.getElementById('bgVideoMobile');
 
         function playVideo() {
-          // setTimeout fix for Safari autoplay
-          setTimeout(function () {
-            video.play();
-            console.log('Play video');
-          }, 50);
+          video.play();
+          console.log('Play video');
         }
 
         function pauseVideo() {
@@ -744,8 +741,11 @@
         const video = document.getElementById('bgVideo');
 
         function playVideo() {
-          video.play();
-          console.log('Play video');
+          // setTimeout fix for Safari autoplay
+          setTimeout(function () {
+            video.play();
+            console.log('Play video ST');
+          }, 50);
         }
 
         function pauseVideo() {
