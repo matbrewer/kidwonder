@@ -90,7 +90,7 @@
 
     // Specify the path to your Lottie animation JSON file
     const animationPath =
-      'https://uploads-ssl.webflow.com/64b36a0c61b7437799a31357/65574b21f3cb4a42120bf247_kw-hero-intro.json';
+      'https://uploads-ssl.webflow.com/64b36a0c61b7437799a31357/65c30bda185964d6965e68ca_kw-hero-intro.json';
 
     // Configure the Lottie options (you can adjust these based on your needs)
     const animationOptions = {
