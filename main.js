@@ -101,7 +101,8 @@
       path: animationPath,
       rendererSettings: {
         preserveAspectRatio: 'xMidYMid slice',
-        role: 'presentation'
+        title: 'Kidwonder logo animation',
+        description: 'Letters of the Kidwonder logo fall from above.'
       }
     };
 
@@ -219,7 +220,8 @@
             path: vars.path,
             rendererSettings: vars.rendererSettings || {
               preserveAspectRatio: 'xMidYMid slice',
-              role: 'presentation'
+              title: 'Kidwonder logo animates out',
+              description: 'Letters of the Kidwonder logo animate upwards on scroll.'
             }
           });
         for (let p in vars) {
