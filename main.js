@@ -100,7 +100,8 @@
       autoplay: false, // Set to true if you want the animation to play automatically
       path: animationPath,
       rendererSettings: {
-        preserveAspectRatio: 'xMidYMid slice'
+        preserveAspectRatio: 'xMidYMid slice',
+        role: 'presentation'
       }
     };
 
@@ -217,7 +218,8 @@
             autoplay: false,
             path: vars.path,
             rendererSettings: vars.rendererSettings || {
-              preserveAspectRatio: 'xMidYMid slice'
+              preserveAspectRatio: 'xMidYMid slice',
+              role: 'presentation'
             }
           });
         for (let p in vars) {
