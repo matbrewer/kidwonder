@@ -997,6 +997,13 @@
         tagName: 'span'
       });
 
+      splitText.words.forEach((word) => {
+        /* If the parent element includes `aria-label`, set `aria-hidden="true"` */
+        if (word.parentElement.getAttribute('aria-label')) {
+          word.setAttribute('aria-hidden', true);
+        }
+      });
+
       let tl = gsap.timeline({
         // repeat: -1,
         // repeatDelay: 0.5,
