@@ -100,9 +100,9 @@
       autoplay: false, // Set to true if you want the animation to play automatically
       path: animationPath,
       rendererSettings: {
-        preserveAspectRatio: 'xMidYMid slice',
-        title: 'Kidwonder logo animation',
-        description: 'Letters of the Kidwonder logo fall from above.'
+        preserveAspectRatio: 'xMidYMid slice'
+        // title: 'Kidwonder logo animation',
+        // description: 'Letters of the Kidwonder logo fall from above.'
       }
     };
 
@@ -219,9 +219,9 @@
             autoplay: false,
             path: vars.path,
             rendererSettings: vars.rendererSettings || {
-              preserveAspectRatio: 'xMidYMid slice',
-              title: 'Kidwonder logo animates out',
-              description: 'Letters of the Kidwonder logo animate upwards on scroll.'
+              preserveAspectRatio: 'xMidYMid slice'
+              // title: 'Kidwonder logo animates out',
+              // description: 'Letters of the Kidwonder logo animate upwards on scroll.'
             }
           });
         for (let p in vars) {
@@ -1036,6 +1036,13 @@
         const splitText = new SplitType(textEl, {
           types: 'lines, words',
           tagName: 'span'
+        });
+
+        splitText.lines.forEach((line) => {
+          /* If the parent element includes `aria-label`, set `aria-hidden="true"` */
+          if (line.parentElement.getAttribute('aria-label')) {
+            line.setAttribute('aria-hidden', true);
+          }
         });
 
         let tl = gsap.timeline({});
