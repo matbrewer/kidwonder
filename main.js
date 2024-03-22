@@ -12,8 +12,7 @@
     const showSignupBtns = document.querySelectorAll('.signup-btn');
     const toggleSignupBtn = document.querySelector('.toggle-signup');
 
-    showMenuBtn.addEventListener('click', function (e) {
-      e.preventDefault();
+    showMenuBtn.addEventListener('click', function () {
       gsap.set(menu, { display: 'flex' });
       gsap.set(signup, { display: 'none' });
       showDrawerAnimation.restart();
@@ -29,12 +28,12 @@
     });
 
     toggleSignupBtn.addEventListener('click', function (e) {
-      e.preventDefault();
+      // e.preventDefault();
       swapDrawerAnimation.restart();
     });
 
     hideDrawerBtn.addEventListener('click', function (e) {
-      e.preventDefault();
+      // e.preventDefault();
       hideDrawerAnimation.restart();
     });
 
