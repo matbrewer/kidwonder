@@ -1,8 +1,11 @@
 (function () {
-  // Menu & sign up
+  // Menu & sign up dialog
   function navDrawer() {
-    const hideDrawerBtn = document.querySelector('.close-btn');
-    const drawerContainer = document.querySelector('.drawer-container');
+    var dialogEl = document.getElementById('dialog');
+    var dialog = new A11yDialog(dialogEl);
+
+    // const hideDrawerBtn = document.querySelector('.close-btn');
+    // const drawerContainer = document.querySelector('.drawer-container');
     const overlay = document.querySelector('.dialog-overlay');
     const drawer = document.querySelector('.drawer');
     const menu = document.querySelector('.drawer .menu');
@@ -12,32 +15,30 @@
     const showSignupBtns = document.querySelectorAll('.signup-btn');
     const toggleSignupBtn = document.querySelector('.toggle-signup');
 
-    showMenuBtn.addEventListener('click', function () {
+    showMenuBtn.addEventListener('click', function (e) {
+      dialog.show();
       gsap.set(menu, { display: 'flex' });
       gsap.set(signup, { display: 'none' });
       showDrawerAnimation.restart();
+      e.preventDefault();
     });
 
     showSignupBtns.forEach((showSignupBtn) => {
       showSignupBtn.addEventListener('click', function (e) {
-        e.preventDefault();
+        dialog.show();
         gsap.set(signup, { display: 'flex' });
         gsap.set(menu, { display: 'none' });
         showDrawerAnimation.restart();
+        e.preventDefault();
       });
     });
 
     toggleSignupBtn.addEventListener('click', function (e) {
-      // e.preventDefault();
       swapDrawerAnimation.restart();
+      e.preventDefault();
     });
 
-    hideDrawerBtn.addEventListener('click', function (e) {
-      // e.preventDefault();
-      hideDrawerAnimation.restart();
-    });
-
-    overlay.addEventListener('click', function () {
+    dialog.on('hide', function () {
       hideDrawerAnimation.restart();
     });
 
@@ -48,7 +49,7 @@
           ease: 'power1.out'
         }
       })
-      .set(drawerContainer, { display: 'block' })
+      // .set(drawerContainer, { display: 'block' })
       .set(drawer, { xPercent: 100, x: 0 })
       .to(overlay, { duration: 0.5, opacity: 1 })
       .to(drawer, { duration: 0.2, xPercent: 0 }, '<0.2');
@@ -61,8 +62,8 @@
         }
       })
       .to(drawer, { delay: 0.2, duration: 0.2, xPercent: 100 })
-      .to(overlay, { duration: 0.5, opacity: 0 }, '<0.2')
-      .set(drawerContainer, { display: 'none' });
+      .to(overlay, { duration: 0.5, opacity: 0 }, '<0.2');
+    // .set(drawerContainer, { display: 'none' });
 
     const swapDrawerAnimation = gsap
       .timeline({
