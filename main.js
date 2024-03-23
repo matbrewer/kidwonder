@@ -50,7 +50,7 @@
 
     document.addEventListener('keydown', function (event) {
       // Check if the dialog is visible
-      if (dialog && dialog.getAttribute('aria-hidden') === null) {
+      if (dialogEl && dialogEl.getAttribute('aria-hidden') === null) {
         if (event.key === 'Escape') {
           // Your code to execute when the Escape key is pressed and the dialog is visible
           console.log('Escape key pressed while dialog is visible!');
