@@ -48,18 +48,6 @@
       e.preventDefault();
     });
 
-    document.addEventListener('keydown', function (event) {
-      // Check if the dialog is visible
-      if (dialogEl && dialogEl.getAttribute('aria-hidden') === null) {
-        if (event.key === 'Escape') {
-          // Your code to execute when the Escape key is pressed and the dialog is visible
-          console.log('Escape key pressed while dialog is visible!');
-          // Example: Call your function here
-          hideDrawerAnimation.restart();
-        }
-      }
-    });
-
     const showDrawerAnimation = gsap
       .timeline({
         paused: true,
@@ -67,12 +55,11 @@
           ease: 'power1.out'
         }
       })
-      // .set(drawerContainer, { display: 'block' })
       .set(drawer, { xPercent: 100, x: 0 })
       .to(overlay, { duration: 0.5, opacity: 1 })
       .to(drawer, { duration: 0.2, xPercent: 0 }, '<0.2');
 
-    function hideDialog() {
+    function dialogHide() {
       dialog.hide();
     }
 
@@ -82,11 +69,10 @@
         defaults: {
           ease: 'power1.out'
         },
-        onComplete: hideDialog
+        onComplete: dialogHide
       })
       .to(drawer, { delay: 0.2, duration: 0.2, xPercent: 100 })
       .to(overlay, { duration: 0.5, opacity: 0 }, '<0.2');
-    // .set(drawerContainer, { display: 'none' });
 
     const swapDrawerAnimation = gsap
       .timeline({
