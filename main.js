@@ -40,13 +40,16 @@
 
     hideDrawerBtn.addEventListener('click', function (e) {
       hideDrawerAnimation.restart();
-      dialog.hide();
       e.preventDefault();
     });
 
     // dialog.on('hide', function () {
     //   hideDrawerAnimation.restart();
     // });
+
+    function hideDialog() {
+      dialog.hide();
+    }
 
     const showDrawerAnimation = gsap
       .timeline({
@@ -65,7 +68,8 @@
         paused: true,
         defaults: {
           ease: 'power1.out'
-        }
+        },
+        onComplete: hideDialog
       })
       .to(drawer, { delay: 0.2, duration: 0.2, xPercent: 100 })
       .to(overlay, { duration: 0.5, opacity: 0 }, '<0.2');
