@@ -4,7 +4,7 @@
     var dialogEl = document.getElementById('dialog');
     var dialog = new A11yDialog(dialogEl);
 
-    // const hideDrawerBtn = document.querySelector('.close-btn');
+    const hideDrawerBtn = document.querySelector('.close-btn');
     // const drawerContainer = document.querySelector('.drawer-container');
     const overlay = document.querySelector('.dialog-overlay');
     const drawer = document.querySelector('.drawer');
@@ -38,9 +38,15 @@
       e.preventDefault();
     });
 
-    dialog.on('hide', function () {
+    hideDrawerBtn.addEventListener('click', function (e) {
       hideDrawerAnimation.restart();
+      dialog.hide();
+      e.preventDefault();
     });
+
+    // dialog.on('hide', function () {
+    //   hideDrawerAnimation.restart();
+    // });
 
     const showDrawerAnimation = gsap
       .timeline({
