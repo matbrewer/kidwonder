@@ -43,13 +43,22 @@
       e.preventDefault();
     });
 
-    // dialog.on('hide', function () {
-    //   hideDrawerAnimation.restart();
-    // });
+    overlay.addEventListener('click', function (e) {
+      hideDrawerAnimation.restart();
+      e.preventDefault();
+    });
 
-    function hideDialog() {
-      dialog.hide();
-    }
+    document.addEventListener('keydown', function (event) {
+      // Check if the dialog is visible
+      if (dialog && dialog.getAttribute('aria-hidden') !== 'true') {
+        if (event.key === 'Escape') {
+          // Your code to execute when the Escape key is pressed and the dialog is visible
+          console.log('Escape key pressed while dialog is visible!');
+          // Example: Call your function here
+          hideDrawerAnimation.restart();
+        }
+      }
+    });
 
     const showDrawerAnimation = gsap
       .timeline({
@@ -62,6 +71,10 @@
       .set(drawer, { xPercent: 100, x: 0 })
       .to(overlay, { duration: 0.5, opacity: 1 })
       .to(drawer, { duration: 0.2, xPercent: 0 }, '<0.2');
+
+    function hideDialog() {
+      dialog.hide();
+    }
 
     const hideDrawerAnimation = gsap
       .timeline({
