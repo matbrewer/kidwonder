@@ -869,8 +869,8 @@
         },
         pagination: false,
         navigation: {
-          nextEl: $(this).closest('.swiper-next'),
-          prevEl: $(this).closest('.swiper-prev'),
+          nextEl: $(this).find('.swiper-next')[0],
+          prevEl: $(this).find('.swiper-prev')[0],
           disabledClass: 'is-disabled'
         },
         scrollbar: false,
