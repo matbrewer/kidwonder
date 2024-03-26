@@ -875,7 +875,10 @@
         },
         scrollbar: false,
         slideActiveClass: 'is-active',
-        slideDuplicateActiveClass: 'is-active'
+        slideDuplicateActiveClass: 'is-active',
+        a11y: {
+          slideRole: 'listitem'
+        }
       });
     });
   }
