@@ -118,9 +118,11 @@
     // Create the Lottie animation
     heroIntroAnimation = lottie.loadAnimation(animationOptions);
 
-    // Add role and aria-label attributes to the SVG element
-    const svgElement = heroIntro.querySelector('svg');
-    svgElement.setAttribute('aria-hidden', 'true');
+    // Add attributes to the SVG element
+    document.addEventListener('DOMLoaded', function () {
+      let svgElement = heroIntro.querySelector('svg');
+      svgElement.setAttribute('aria-hidden', 'true');
+    });
   }
 
   function playHeroIntroAnimation() {
