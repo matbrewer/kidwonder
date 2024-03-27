@@ -117,6 +117,10 @@
 
     // Create the Lottie animation
     heroIntroAnimation = lottie.loadAnimation(animationOptions);
+
+    // Add role and aria-label attributes to the SVG element
+    const svgElement = heroIntro.querySelector('svg');
+    svgElement.setAttribute('aria-hidden', 'true');
   }
 
   function playHeroIntroAnimation() {
@@ -233,6 +237,12 @@
               // description: 'Letters of the Kidwonder logo animate upwards on scroll.'
             }
           });
+
+        animation.addEventListener('DOMLoaded', function () {
+          let svgElement = target.querySelector('svg');
+          svgElement.setAttribute('aria-hidden', 'true');
+        });
+
         for (let p in vars) {
           // let users override the ScrollTrigger defaults
           st[p] = vars[p];
@@ -607,7 +617,10 @@
 
     // Add attributes
     canvasElement.setAttribute('role', 'img');
-    canvasElement.setAttribute('aria-label', 'A canvas element');
+    canvasElement.setAttribute(
+      'aria-label',
+      'A pile of stacked short questions such as "Can you see sound?" and "Is the moon following me?"'
+    );
 
     Render.run(render);
 
