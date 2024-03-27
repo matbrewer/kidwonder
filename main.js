@@ -602,6 +602,13 @@
       }
     });
 
+    // Get the canvas element
+    var canvasElement = render.canvas;
+
+    // Add attributes
+    canvasElement.setAttribute('role', 'img');
+    canvasElement.setAttribute('aria-label', 'A canvas element');
+
     Render.run(render);
 
     // Create runner
