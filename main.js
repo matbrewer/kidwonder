@@ -117,12 +117,6 @@
 
     // Create the Lottie animation
     heroIntroAnimation = lottie.loadAnimation(animationOptions);
-
-    // Add attributes to the SVG element
-    document.addEventListener('DOMLoaded', function () {
-      let svgElement = heroIntro.querySelector('svg');
-      svgElement.setAttribute('aria-hidden', 'true');
-    });
   }
 
   function playHeroIntroAnimation() {
@@ -142,6 +136,11 @@
     const heroBullets = document.querySelectorAll('.hero-bullet');
     const heroScroll = document.querySelector('.scroll');
 
+    // Add attributes to the SVG intro element
+    let svgElement = heroIntro.querySelector('svg');
+    svgElement.setAttribute('aria-hidden', 'true');
+
+    // Timeline
     let tl = gsap.timeline({
       // paused: true
     });
