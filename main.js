@@ -781,7 +781,7 @@
             // setTimeout fix for Safari autoplay
             setTimeout(function () {
               video.play();
-              console.log('Play video ST');
+              console.log('Play video');
             }, 50);
           }
         }
@@ -798,10 +798,14 @@
           userInteracted = true; // Set the flag to true on user interaction
           if (video.paused) {
             video.play();
+            controls.setAttribute('aria-label', 'Pause video');
+            controls.classList.remove('paused');
           } else {
             video.pause();
+            controls.setAttribute('aria-label', 'Play video');
+            controls.classList.add('paused');
           }
-          console.log('User interacted with controls');
+          // console.log('User interacted with controls');
         });
 
         ScrollTrigger.create({
