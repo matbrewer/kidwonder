@@ -773,19 +773,35 @@
       mm.add('(min-width: 768px)', () => {
         // desktop setup code here...
         const video = document.getElementById('bgVideo');
+        const controls = document.getElementById('playPauseBtn');
+        let userInteracted = false; // Flag to track user interaction
 
         function playVideo() {
-          // setTimeout fix for Safari autoplay
-          setTimeout(function () {
-            video.play();
-            console.log('Play video ST');
-          }, 50);
+          if (!userInteracted) {
+            // setTimeout fix for Safari autoplay
+            setTimeout(function () {
+              video.play();
+              console.log('Play video ST');
+            }, 50);
+          }
         }
 
         function pauseVideo() {
-          video.pause();
-          console.log('Pause video');
+          if (!userInteracted) {
+            video.pause();
+            console.log('Pause video');
+          }
         }
+
+        // Add event listeners for manual play and pause
+        controls.addEventListener('click', function () {
+          userInteracted = true; // Set the flag to true on user interaction
+          if (video.paused) {
+            playVideo();
+          } else {
+            pauseVideo();
+          }
+        });
 
         ScrollTrigger.create({
           trigger: '.show-hero__kw',
