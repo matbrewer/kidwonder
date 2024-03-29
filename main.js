@@ -797,10 +797,11 @@
         controls.addEventListener('click', function () {
           userInteracted = true; // Set the flag to true on user interaction
           if (video.paused) {
-            playVideo();
+            playVideo;
           } else {
-            pauseVideo();
+            pauseVideo;
           }
+          console.log('User interacted with controls');
         });
 
         ScrollTrigger.create({
