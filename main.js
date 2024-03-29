@@ -797,9 +797,9 @@
         controls.addEventListener('click', function () {
           userInteracted = true; // Set the flag to true on user interaction
           if (video.paused) {
-            playVideo;
+            video.play();
           } else {
-            pauseVideo;
+            video.pause();
           }
           console.log('User interacted with controls');
         });
