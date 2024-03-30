@@ -781,6 +781,8 @@
             // setTimeout fix for Safari autoplay
             setTimeout(function () {
               video.play();
+              controls.setAttribute('aria-label', 'Pause video');
+              controls.classList.remove('paused');
               console.log('Play video');
             }, 50);
           }
@@ -789,6 +791,8 @@
         function pauseVideo() {
           if (!userInteracted) {
             video.pause();
+            controls.setAttribute('aria-label', 'Play video');
+            controls.classList.add('paused');
             console.log('Pause video');
           }
         }
