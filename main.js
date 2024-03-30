@@ -748,16 +748,44 @@
       mm.add('(max-width: 767px)', () => {
         // mobile setup code here...
         const video = document.getElementById('bgVideoMobile');
+        const controls = document.getElementById('playPauseBtn');
+        let userInteracted = false; // Flag to track user interaction
 
         function playVideo() {
-          video.play();
-          console.log('Play video');
+          if (!userInteracted) {
+            video.play();
+            controls.setAttribute('aria-label', 'Pause video');
+            controls.classList.remove('paused');
+            console.log('Play video');
+          }
         }
 
         function pauseVideo() {
-          video.pause();
-          console.log('Pause video');
+          if (!userInteracted) {
+            video.pause();
+            controls.setAttribute('aria-label', 'Play video');
+            controls.classList.add('paused');
+            console.log('Pause video');
+          }
         }
+
+        function toggleVideoPlayback() {
+          userInteracted = true; // Set the flag to true on user interaction
+          if (video.paused) {
+            video.play();
+            controls.setAttribute('aria-label', 'Pause video');
+            controls.classList.remove('paused');
+            console.log('Play btn');
+          } else {
+            video.pause();
+            controls.setAttribute('aria-label', 'Play video');
+            controls.classList.add('paused');
+            console.log('Pause btn');
+          }
+        }
+
+        // Add event listener for manual play and pause
+        controls.addEventListener('click', toggleVideoPlayback);
 
         ScrollTrigger.create({
           trigger: '.show-hero__kw',
@@ -768,6 +796,11 @@
           onEnterBack: playVideo,
           onLeaveBack: pauseVideo
         });
+
+        return () => {
+          // optional
+          controls.removeEventListener('click', toggleVideoPlayback);
+        };
       });
 
       mm.add('(min-width: 768px)', () => {
@@ -803,7 +836,7 @@
             video.play();
             controls.setAttribute('aria-label', 'Pause video');
             controls.classList.remove('paused');
-            console.log('Pause btn');
+            console.log('Play btn');
           } else {
             video.pause();
             controls.setAttribute('aria-label', 'Play video');
