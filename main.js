@@ -768,10 +768,6 @@
           onEnterBack: playVideo,
           onLeaveBack: pauseVideo
         });
-
-        // Remove the event listener if it exists
-        const controls = document.getElementById('playPauseBtn');
-        controls.removeEventListener('click', toggleVideoPlayback);
       });
 
       mm.add('(min-width: 768px)', () => {
@@ -828,6 +824,11 @@
           onEnterBack: playVideo,
           onLeaveBack: pauseVideo
         });
+
+        return () => {
+          // optional
+          controls.removeEventListener('click', toggleVideoPlayback);
+        };
       });
     }
   }
