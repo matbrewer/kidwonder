@@ -768,6 +768,10 @@
           onEnterBack: playVideo,
           onLeaveBack: pauseVideo
         });
+
+        // Remove the event listener if it exists
+        const controls = document.getElementById('playPauseBtn');
+        controls.removeEventListener('click', toggleVideoPlayback);
       });
 
       mm.add('(min-width: 768px)', () => {
@@ -775,14 +779,12 @@
         const video = document.getElementById('bgVideo');
         const controls = document.getElementById('playPauseBtn');
         let userInteracted = false; // Flag to track user interaction
-        let videoPlaying = false; // Flag
 
         function playVideo() {
           if (!userInteracted) {
             // setTimeout fix for Safari autoplay
             setTimeout(function () {
               video.play();
-              videoPlaying = true;
               controls.setAttribute('aria-label', 'Pause video');
               controls.classList.remove('paused');
               console.log('Play video');
@@ -793,31 +795,29 @@
         function pauseVideo() {
           if (!userInteracted) {
             video.pause();
-            videoPlaying = false;
             controls.setAttribute('aria-label', 'Play video');
             controls.classList.add('paused');
             console.log('Pause video');
           }
         }
 
-        // Add event listeners for manual play and pause
-        controls.addEventListener('click', function () {
+        function toggleVideoPlayback() {
           userInteracted = true; // Set the flag to true on user interaction
-          if (!videoPlaying) {
+          if (video.paused) {
             video.play();
             controls.setAttribute('aria-label', 'Pause video');
             controls.classList.remove('paused');
-            videoPlaying = true;
-            console.log('Play btn');
+            console.log('Pause btn');
           } else {
             video.pause();
             controls.setAttribute('aria-label', 'Play video');
             controls.classList.add('paused');
-            videoPlaying = false;
             console.log('Pause btn');
           }
-          // console.log('User interacted with controls');
-        });
+        }
+
+        // Add event listener for manual play and pause
+        controls.addEventListener('click', toggleVideoPlayback);
 
         ScrollTrigger.create({
           trigger: '.show-hero__kw',
