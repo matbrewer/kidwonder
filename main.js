@@ -804,10 +804,12 @@
             video.play();
             controls.setAttribute('aria-label', 'Pause video');
             controls.classList.remove('paused');
+            console.log('Play btn');
           } else {
             video.pause();
             controls.setAttribute('aria-label', 'Play video');
             controls.classList.add('paused');
+            console.log('Pause btn');
           }
           // console.log('User interacted with controls');
         });
