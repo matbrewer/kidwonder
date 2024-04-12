@@ -158,10 +158,10 @@
     //   autoAlpha: 0,
     //   onComplete: playHeroIntroAnimation
     // });
+    tl.to({}, { duration: 3.5 }); // empty tween for lottie animation
     tl.set(body, {
       position: 'relative'
     });
-    tl.to({}, { duration: 3.5 }); // empty tween for lottie animation
     tl.from(
       heroBullets,
       {
