@@ -148,8 +148,7 @@
     tl.set(body, {
       overflow: 'hidden',
       width: '100vw',
-      position: 'fixed',
-      onComplete: playHeroIntroAnimation
+      position: 'fixed'
     });
     // tl.to(aoc, {
     //   duration: 0.5,
@@ -158,10 +157,17 @@
     //   autoAlpha: 0,
     //   onComplete: playHeroIntroAnimation
     // });
-    tl.to({}, { duration: 3.5 }); // empty tween for lottie animation
+    tl.to({}, { duration: 0.9 }); // empty tween for overlay to close
     tl.set(body, {
       position: 'relative'
     });
+    tl.to(
+      {},
+      {
+        duration: 3.5,
+        onStart: playHeroIntroAnimation
+      }
+    ); // empty tween for lottie animation
     tl.from(
       heroBullets,
       {
@@ -1296,7 +1302,7 @@
     var master = gsap.timeline({});
 
     master.add(removePreloader());
-    master.add(homeIntroAnimation());
+    master.add(homeIntroAnimation(), '<');
   }
 
   function homePage() {
