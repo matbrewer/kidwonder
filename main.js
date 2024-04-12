@@ -131,7 +131,7 @@
 
   function homeIntroAnimation() {
     const body = document.body;
-    const aoc = document.getElementById('aoc');
+    // const aoc = document.getElementById('aoc');
     const introWrapper = document.getElementById('heroIntro');
     const heroBullets = document.querySelectorAll('.hero-bullet');
     const heroScroll = document.querySelector('.scroll');
@@ -148,22 +148,19 @@
     tl.set(body, {
       overflow: 'hidden',
       width: '100vw',
-      position: 'fixed'
-    });
-    tl.to(aoc, {
-      duration: 0.5,
-      ease: 'power1.out',
-      delay: 3,
-      autoAlpha: 0,
+      position: 'fixed',
       onComplete: playHeroIntroAnimation
     });
-    tl.set(
-      body,
-      {
-        position: 'relative'
-      },
-      '<'
-    );
+    // tl.to(aoc, {
+    //   duration: 0.5,
+    //   ease: 'power1.out',
+    //   delay: 3,
+    //   autoAlpha: 0,
+    //   onComplete: playHeroIntroAnimation
+    // });
+    tl.set(body, {
+      position: 'relative'
+    });
     tl.to({}, { duration: 3.5 }); // empty tween for lottie animation
     tl.from(
       heroBullets,
@@ -198,6 +195,8 @@
       overflow: 'auto'
     });
     tl.add(actionBtnAnimateIn(), '<');
+
+    return tl;
   }
 
   function heroOutroScrollAnimation() {
@@ -1293,6 +1292,13 @@
     master.add(actionBtnAnimateIn(), '<');
   }
 
+  function homePageLoadAnimation() {
+    var master = gsap.timeline({});
+
+    master.add(removePreloader());
+    master.add(homeIntroAnimation());
+  }
+
   function homePage() {
     // homePage
     setHeroIntroAnimation();
@@ -1300,7 +1306,7 @@
 
     window.addEventListener('load', () => {
       console.log('loaded'); // TODO get rid when confident
-      homeIntroAnimation();
+      homePageLoadAnimation();
     });
 
     homeWhatWeDoAnimation();
