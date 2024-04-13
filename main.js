@@ -126,7 +126,6 @@
 
       setLocalStorage();
       ack_dialog.hide();
-      console.log('Handle Click');
     }
 
     // Function to check if the localStorage item is set and not expired
