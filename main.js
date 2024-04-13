@@ -1337,7 +1337,7 @@
       if (document.body.classList.contains('homepage')) {
         master.add(homeIntroAnimation(), '<');
       } else {
-        // master.add(pageLoadAnimation(), '<');
+        master.add(pageLoadAnimation(), '<');
       }
 
       master.play();
