@@ -1305,15 +1305,149 @@
     master.add(homeIntroAnimation(), '<');
   }
 
+  function ack() {
+    let ack_container;
+    let ack_dialog;
+    let ack_close;
+
+    function handle_click() {
+      ack_inner.removeEventListener('click', handle_click);
+      ack_close.removeEventListener('click', handle_click);
+
+      function dialogDestroy() {
+        ack_container.remove();
+        ack_dialog.destroy();
+      }
+
+      function anim_out() {
+        let tl = gsap.timeline();
+        tl.to(ack_container, {
+          delay: 0.4,
+          duration: 0.5,
+          ease: 'power1.out',
+          autoAlpha: 0,
+          onComplete: dialogDestroy
+        });
+        return tl;
+      }
+
+      var master = gsap.timeline({});
+
+      master.add(anim_out());
+      if (document.body.classList.contains('homepage')) {
+        master.add(homeIntroAnimation(), '<');
+      } else {
+        // master.add(pageLoadAnimation(), '<');
+      }
+
+      master.play();
+
+      setLocalStorage();
+      ack_dialog.hide();
+      console.log('Handle Click');
+    }
+
+    // Function to check if the localStorage item is set and not expired
+    function checkLocalStorage() {
+      var itemString = localStorage.getItem('ack');
+      if (itemString !== null) {
+        var item = JSON.parse(itemString);
+        var currentTime = new Date().getTime();
+        return currentTime < item.expires; // Check if the current time is before the expiration time
+      } else {
+        return false; // If the item is not set, return false
+      }
+    }
+
+    // Function to do something if the localStorage item is set to false
+    function render_ack() {
+      // Your code here
+      ack_container = document.createElement('div');
+      ack_container.id = 'ack';
+      ack_container.className = 'ack';
+      ack_container.setAttribute('role', 'alertdialog');
+      ack_container.setAttribute('aria-modal', 'true');
+      ack_container.setAttribute('aria-label', 'Acknowledgement of Country');
+      ack_container.setAttribute('tabindex', '-1');
+      document.body.appendChild(ack_container);
+
+      ack_inner = document.createElement('div');
+      ack_inner.className = 'ack__inner';
+      ack_inner.setAttribute('role', 'document');
+      ack_container.appendChild(ack_inner);
+
+      ack_inner.addEventListener('click', handle_click);
+
+      const ack_text = document.createElement('p');
+      ack_text.className = 'ack__text';
+      ack_text.innerHTML =
+        "Kidwonder acknowledges the Gadigal and other Traditional Custodians of the lands on which we live and work. We pay respect to their Elders' past, present and emerging. We extend that respect to all First Nations people as knowledge holders with continuing connections to land, place, waters and community.";
+      ack_inner.appendChild(ack_text);
+
+      ack_close = document.createElement('button');
+      ack_close.className = 'btn ack__btn';
+      ack_close.innerHTML = 'Continue';
+      ack_close.setAttribute('type', 'button');
+      ack_close.setAttribute('label', 'Close dialog and continue');
+      ack_inner.appendChild(ack_close);
+
+      ack_close.addEventListener('click', handle_click);
+
+      ack_dialog = new A11yDialog(ack_container);
+      ack_dialog.show();
+
+      const site_preloader = document.getElementById('preloader');
+      let anim_in = gsap.timeline({});
+
+      anim_in
+        .to(ack_container, {
+          // paused: true,
+          ease: 'power1.out',
+          duration: 0.5,
+          opacity: 1
+        })
+        .set(site_preloader, {
+          autoAlpha: 0
+        });
+
+      anim_in.play();
+      console.log('localStorage item is not set.');
+    }
+
+    // Function to set the localStorage item with expiration
+    function setLocalStorage() {
+      var expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 7); // Set expiration date to 7 days from now
+      var item = {
+        value: 'true',
+        expires: expirationDate.getTime() // Convert expiration date to milliseconds since Unix epoch
+      };
+      localStorage.setItem('ack', JSON.stringify(item));
+    }
+
+    // Check if the localStorage item is set and perform actions accordingly
+    if (checkLocalStorage()) {
+      if (document.body.classList.contains('homepage')) {
+        homePageLoadAnimation();
+        console.log('home localStorage item is set.');
+      } else {
+        pageLoadAnimation();
+        console.log('page localStorage item is set.');
+      }
+    } else {
+      render_ack();
+    }
+  }
+
   function homePage() {
     // homePage
     setHeroIntroAnimation();
     heroOutroScrollAnimation();
 
-    window.addEventListener('load', () => {
-      console.log('loaded'); // TODO get rid when confident
-      homePageLoadAnimation();
-    });
+    // window.addEventListener('load', () => {
+    //   console.log('loaded'); // TODO get rid when confident
+    //   homePageLoadAnimation();
+    // });
 
     homeWhatWeDoAnimation();
     millionQuestions();
@@ -1328,9 +1462,9 @@
 
   function contentPage() {
     // about, exhibitions, inspired, partners, contact, terms & privacy
-    window.addEventListener('load', () => {
-      pageLoadAnimation();
-    });
+    // window.addEventListener('load', () => {
+    //   pageLoadAnimation();
+    // });
 
     // aboutPage
     getSydneyTime();
@@ -1341,9 +1475,9 @@
 
   function postPage() {
     // articlePage / postPage
-    window.addEventListener('load', () => {
-      pageLoadAnimation();
-    });
+    // window.addEventListener('load', () => {
+    //   pageLoadAnimation();
+    // });
     postImageGridParallax();
   }
 
@@ -1354,6 +1488,11 @@
     scaleCardImageOnHover();
     rotateActionBtnOnScroll();
     getCopyrightYear();
+
+    window.addEventListener('load', () => {
+      console.log('loaded ack'); // TODO get rid when confident
+      ack();
+    });
 
     // page specific
     if (document.body.classList.contains('homepage')) {
