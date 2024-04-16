@@ -169,7 +169,7 @@
       ack_close.className = 'btn ack__btn';
       ack_close.innerHTML = 'Continue';
       ack_close.setAttribute('type', 'button');
-      ack_close.setAttribute('label', 'Close dialog and continue');
+      ack_close.setAttribute('aria-label', 'Close dialog and continue');
       ack_inner.appendChild(ack_close);
 
       ack_close.addEventListener('click', handle_click);
