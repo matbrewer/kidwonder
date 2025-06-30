@@ -206,8 +206,8 @@
       localStorage.setItem('ack', JSON.stringify(item));
     }
 
-    // Check if the localStorage item is set and perform actions accordingly
-    if (checkLocalStorage()) {
+    // Check if the localStorage item is set or body has 'no-ack' class
+    if (checkLocalStorage() || document.body.classList.contains('no-ack')) {
       if (document.body.classList.contains('homepage')) {
         homePageLoadAnimation();
         // console.log('home localStorage item is set.');
